@@ -5,24 +5,27 @@ import java.awt.event.ActionListener;
 public class MyFrame extends JFrame implements ActionListener {
     private JButton play;
     private boolean ifNext;
-    private JPanel first;
+    private JPanel first = new JPanel();;
     private JLabel secondLabel;
     private JPanel second;
-    private JPanel next;
+    private JButton next = new JButton();
+    private ImageIcon secondImage;
+    private JLabel firstLabel=new JLabel();
     MyFrame(){
+        setLayout(null);
 
 
         //start button
         ImageIcon start=new ImageIcon("src/start.png"); //start button
         ImageIcon firstImage=new ImageIcon("src/first.png"); //first panel image
-        ImageIcon secondImage=new ImageIcon("src/instructions.png"); //second panel image background
+        secondImage=new ImageIcon("src/instructions.png"); //second panel image background
         ImageIcon nextImage=new ImageIcon("src/next.png"); //second next image
 
         Image image = firstImage.getImage(); // transform it
         Image newing = image.getScaledInstance(1920, 1080,  java.awt.Image.SCALE_SMOOTH);
         firstImage =new ImageIcon(newing);
 
-        Image image1 = firstImage.getImage(); // transform it
+        Image image1 = secondImage.getImage(); // transform it
         Image newing1 = image1.getScaledInstance(1920, 1080,  java.awt.Image.SCALE_SMOOTH);
         secondImage =new ImageIcon(newing1);
 
@@ -35,17 +38,13 @@ public class MyFrame extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == play) {
                     System.out.println("Hey");
+                    secondLabel();
+                    secondPanel();
                     play.setEnabled(false);
                     ifNext=true;
 
                     //button.setEnabled("false); makes it so the button could only be used once
                     //label.setVisible(true); could make a label appear true;
-                }
-                else {
-                    if(e.getSource()==next){
-                        //make a line of code to close the program
-                    }
-
                 }
             }
 
@@ -57,7 +56,7 @@ public class MyFrame extends JFrame implements ActionListener {
 
 
         //first jlabel for background of first jpanel
-        JLabel firstLabel=new JLabel();
+
         firstLabel.setIcon(firstImage);
         firstLabel.setBounds(0,0,1920,1080);
         firstLabel.setVisible(true);
@@ -68,31 +67,23 @@ public class MyFrame extends JFrame implements ActionListener {
 
 
         //next jbutton
-        JButton next=new JButton();
+        next=new JButton();
         next.setBounds(1800,900, 300,300);
-        next.addActionListener(this);
+        next.addActionListener(e->dispose());
 
         //second jlabel for second jpanel
-        JLabel secondLabel=new JLabel();
-        secondLabel.setIcon(secondImage);
-        secondLabel.setBounds(0,0,1920,1080);
-        secondLabel.setLayout(null);
-        secondLabel.add(next);
+
 
 
 
         //first jpanel
-        JPanel first=new JPanel();
+
         first.setBounds(0,0,1920,1080); //sets the size
         first.setVisible(true);
         first.add(firstLabel);
 
 
         //second Jpanel
-        JPanel second = new JPanel();
-        second.setBounds(0,0,1920,1080);
-        second.add(secondLabel); //use the label as a background
-        second.setVisible(true);
 
 
 
@@ -101,34 +92,44 @@ public class MyFrame extends JFrame implements ActionListener {
 
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(null);
+
         this.setSize(1920,1080);
         this.setVisible(true);
         this.show();
 
 
     }
+    public void secondPanel()
+    {
+        second = new JPanel();
+        second.setBounds(0,0,1920,1080);
+        second.add(secondLabel); //use the label as a background
+        second.setVisible(true);
+        this.add(second);
+        first.setVisible(false);
+
+    }
+    public void secondLabel()
+    {
+        secondLabel=new JLabel();
+        secondLabel.setIcon(secondImage);
+        secondLabel.setBounds(0,0,1920,1080);
+        secondLabel.setLayout(null);
+        secondLabel.add(next);
+        firstLabel.setVisible(false);
+    }
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == play) {
             System.out.println("Hey");
-
-            ifNext=true;
-
-
-            //makes it so the button could only be used once
-            //label.setVisible(true); could make a label appear true;
-            ifNext=true;
-            first.setVisible(false);
-            this.remove(first);
-            this.add(second);
+            secondLabel();
+            secondPanel();
             play.setEnabled(false);
-        }
-        else {
-            if(e.getSource()==next){
-                this.setVisible(false);
-            }
+            ifNext=true;
 
+            //button.setEnabled("false); makes it so the button could only be used once
+            //label.setVisible(true); could make a label appear true;
         }
+
     }
 
 }
