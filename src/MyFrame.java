@@ -68,7 +68,8 @@ public class MyFrame extends JFrame implements ActionListener {
 
         //next jbutton
         next=new JButton();
-        next.setBounds(1800,900, 300,300);
+        next.setIcon(nextImage);
+        next.setBounds(1100,800, 1300,200);
         next.addActionListener(e->dispose());
 
         //second jlabel for second jpanel
